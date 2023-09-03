@@ -7,6 +7,7 @@ import 'package:weather_forecast/data/models/weather_data_model.dart';
 import 'package:weather_forecast/domain/datasource/get_weather_data_datasource.dart';
 import 'package:weather_forecast/domain/entities/weather_data_entity.dart';
 import 'package:weather_forecast/domain/http_request_failure.dart';
+import 'package:weather_forecast/env/env.dart';
 
 class GetWeatherDataDatasource implements IGetWeatherDataDatasource {
   final http.Client _httpClient;
@@ -14,20 +15,18 @@ class GetWeatherDataDatasource implements IGetWeatherDataDatasource {
   GetWeatherDataDatasource({required http.Client httpClient})
       : _httpClient = httpClient;
 
-  static const _baseUrlWeather = 'api.openweathermap.org';
-
   @override
   TaskEither<IHttpRequestFailure, WeatherDataEntity> call(
           {required double lat, required double lon}) =>
       TaskEither<IHttpRequestFailure, http.Response>.tryCatch(
         () => _httpClient.get(
           Uri.https(
-            _baseUrlWeather,
+            Env.baseWeatherUrl,
             '/data/3.0/onecall',
             {
               'lat': lat.toString(),
               'lon': lon.toString(),
-              'appid': '', // TODO: Implement env key
+              'appid': Env.openWeatherKey,
             },
           ),
         ),

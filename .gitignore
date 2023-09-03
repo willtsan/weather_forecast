@@ -42,3 +42,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Envied auto generate files
+env.g.dart
+
+# If it's a official project, this have to be on to prevent api keys to be exposed.
+# .env.dev

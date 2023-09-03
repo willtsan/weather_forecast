@@ -7,6 +7,7 @@ import 'package:weather_forecast/data/models/geocoding_data_model.dart';
 import 'package:weather_forecast/domain/datasource/get_geocoding_data_datasource.dart';
 import 'package:weather_forecast/domain/entities/geocoding_data_entity.dart';
 import 'package:weather_forecast/domain/http_request_failure.dart';
+import 'package:weather_forecast/env/env.dart';
 
 class GetGeocodingDataDatasource implements IGetGeocodingDataDatasource {
   final http.Client _httpClient;
@@ -14,19 +15,17 @@ class GetGeocodingDataDatasource implements IGetGeocodingDataDatasource {
   GetGeocodingDataDatasource({required http.Client httpClient})
       : _httpClient = httpClient;
 
-  static const _baseUrlWeather = 'api.openweathermap.org';
-
   @override
   TaskEither<IHttpRequestFailure, GeocodingDataEntity> call(
           {required String cityName}) =>
       TaskEither<IHttpRequestFailure, http.Response>.tryCatch(
         () => _httpClient.get(
           Uri.https(
-            _baseUrlWeather,
+            Env.baseWeatherUrl,
             '/geo/1.0/direct',
             {
               'q': cityName,
-              'appid': '', // TODO: Implement env key
+              'appid': Env.openWeatherKey,
             },
           ),
         ),
