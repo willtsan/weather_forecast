@@ -1,116 +1,89 @@
-class GeocodingLocalNamesEntity {
-  String? ar;
-  String? ascii;
-  String? bg;
-  String? ca;
-  String? de;
-  String? el;
-  String? en;
-  String? fa;
-  String? featureName;
-  String? fi;
-  String? fr;
-  String? gl;
-  String? he;
-  String? hi;
-  String? id;
-  String? it;
-  String? ja;
-  String? la;
-  String? lt;
-  String? pt;
-  String? ru;
-  String? sr;
-  String? th;
-  String? tr;
-  String? vi;
-  String? zu;
+import 'package:equatable/equatable.dart';
 
-  GeocodingLocalNamesEntity(
-      {ar,
-      ascii,
-      bg,
-      ca,
-      de,
-      el,
-      en,
-      fa,
-      featureName,
-      fi,
-      fr,
-      gl,
-      he,
-      hi,
-      id,
-      it,
-      ja,
-      la,
-      lt,
-      pt,
-      ru,
-      sr,
-      th,
-      tr,
-      vi,
-      zu});
+class GeocodingLocalNamesEntity extends Equatable {
+  final String? ar;
+  final String? ascii;
+  final String? bg;
+  final String? ca;
+  final String? de;
+  final String? el;
+  final String? en;
+  final String? fa;
+  final String? featureName;
+  final String? fi;
+  final String? fr;
+  final String? gl;
+  final String? he;
+  final String? hi;
+  final String? id;
+  final String? it;
+  final String? ja;
+  final String? la;
+  final String? lt;
+  final String? pt;
+  final String? ru;
+  final String? sr;
+  final String? th;
+  final String? tr;
+  final String? vi;
+  final String? zu;
 
-  GeocodingLocalNamesEntity.fromJson(Map<String, dynamic> json) {
-    ar = json['ar'];
-    ascii = json['ascii'];
-    bg = json['bg'];
-    ca = json['ca'];
-    de = json['de'];
-    el = json['el'];
-    en = json['en'];
-    fa = json['fa'];
-    featureName = json['feature_name'];
-    fi = json['fi'];
-    fr = json['fr'];
-    gl = json['gl'];
-    he = json['he'];
-    hi = json['hi'];
-    id = json['id'];
-    it = json['it'];
-    ja = json['ja'];
-    la = json['la'];
-    lt = json['lt'];
-    pt = json['pt'];
-    ru = json['ru'];
-    sr = json['sr'];
-    th = json['th'];
-    tr = json['tr'];
-    vi = json['vi'];
-    zu = json['zu'];
-  }
+  const GeocodingLocalNamesEntity({
+    required this.ar,
+    required this.ascii,
+    required this.bg,
+    required this.ca,
+    required this.de,
+    required this.el,
+    required this.en,
+    required this.fa,
+    required this.featureName,
+    required this.fi,
+    required this.fr,
+    required this.gl,
+    required this.he,
+    required this.hi,
+    required this.id,
+    required this.it,
+    required this.ja,
+    required this.la,
+    required this.lt,
+    required this.pt,
+    required this.ru,
+    required this.sr,
+    required this.th,
+    required this.tr,
+    required this.vi,
+    required this.zu,
+  });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['ar'] = ar;
-    data['ascii'] = ascii;
-    data['bg'] = bg;
-    data['ca'] = ca;
-    data['de'] = de;
-    data['el'] = el;
-    data['en'] = en;
-    data['fa'] = fa;
-    data['feature_name'] = featureName;
-    data['fi'] = fi;
-    data['fr'] = fr;
-    data['gl'] = gl;
-    data['he'] = he;
-    data['hi'] = hi;
-    data['id'] = id;
-    data['it'] = it;
-    data['ja'] = ja;
-    data['la'] = la;
-    data['lt'] = lt;
-    data['pt'] = pt;
-    data['ru'] = ru;
-    data['sr'] = sr;
-    data['th'] = th;
-    data['tr'] = tr;
-    data['vi'] = vi;
-    data['zu'] = zu;
-    return data;
-  }
+  @override
+  List<Object?> get props => [
+        ar,
+        ascii,
+        bg,
+        ca,
+        de,
+        el,
+        en,
+        fa,
+        featureName,
+        fi,
+        fr,
+        gl,
+        he,
+        hi,
+        id,
+        it,
+        ja,
+        la,
+        lt,
+        pt,
+        ru,
+        sr,
+        th,
+        tr,
+        vi,
+        zu
+      ];
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weather_forecast/presentation/home/home.controller.dart';
+import 'package:weather_forecast/presentation/home/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -38,7 +38,10 @@ class HomePage extends GetView<HomeController> {
               itemCount: 20,
               //shrinkWrap: true,
             ),
-          )
+          ),
+          TextButton(
+              onPressed: () => controller.fetchData(),
+              child: const Text("teste api"))
         ]),
       ),
     );

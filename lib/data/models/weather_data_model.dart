@@ -1,9 +1,9 @@
-import 'package:weather_forecast/domain/entities/weather_alerts_entity.dart';
-import 'package:weather_forecast/domain/entities/weather_current_entity.dart';
-import 'package:weather_forecast/domain/entities/weather_daily_entity.dart';
+import 'package:weather_forecast/data/models/weather_alerts_model.dart';
+import 'package:weather_forecast/data/models/weather_current_model.dart';
+import 'package:weather_forecast/data/models/weather_daily_model.dart';
+import 'package:weather_forecast/data/models/weather_hourly_model.dart';
+import 'package:weather_forecast/data/models/weather_minutely_model.dart';
 import 'package:weather_forecast/domain/entities/weather_data_entity.dart';
-import 'package:weather_forecast/domain/entities/weather_hourly_entity.dart';
-import 'package:weather_forecast/domain/entities/weather_minutely_entity.dart';
 
 class WeatherDataModel extends WeatherDataEntity {
   const WeatherDataModel(
@@ -19,23 +19,24 @@ class WeatherDataModel extends WeatherDataEntity {
 
   factory WeatherDataModel.fromJson(Map<String, dynamic> json) {
     return WeatherDataModel(
-      alerts: json['alerts']
-          ? json['alerts'].map((x) => WeatherAlertsEntity.fromJson(x))
-          : <WeatherAlertsEntity>[],
+      alerts: json['alerts'] != null
+          ? List.from(json['alerts'].map((x) => WeatherAlertsModel.fromJson(x)))
+          : <WeatherAlertsModel>[],
       current: json['current'] != null
-          ? WeatherCurrentEntity.fromJson(json['current'])
+          ? WeatherCurrentModel.fromJson(json['current'])
           : null,
-      daily: json['daily']
-          ? json['daily'].map((x) => WeatherDailyEntity.fromJson(x))
-          : <WeatherDailyEntity>[],
-      hourly: json['hourly']
-          ? json['hourly'].map((x) => WeatherHourlyEntity.fromJson(x))
-          : <WeatherHourlyEntity>[],
-      lat: json['lat'],
-      lon: json['lon'],
-      minutely: json['minutely']
-          ? json['minutely'].map((x) => WeatherMinutelyEntity.fromJson(x))
-          : <WeatherMinutelyEntity>[],
+      daily: json['daily'] != null
+          ? List.from(json['daily'].map((x) => WeatherDailyModel.fromJson(x)))
+          : <WeatherDailyModel>[],
+      hourly: json['hourly'] != null
+          ? List.from(json['hourly'].map((x) => WeatherHourlyModel.fromJson(x)))
+          : <WeatherHourlyModel>[],
+      lat: json['lat'] is double? ? json['lat'] : json['lat'].toDouble(),
+      lon: json['lon'] is double? ? json['lon'] : json['lon'].toDouble(),
+      minutely: json['minutely'] != null
+          ? List.from(
+              json['minutely'].map((x) => WeatherMinutelyModel.fromJson(x)))
+          : <WeatherMinutelyModel>[],
       timezone: json['timezone'],
       timezoneOffset: json['timezone_offset'],
     );

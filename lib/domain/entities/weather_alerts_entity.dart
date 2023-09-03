@@ -1,37 +1,29 @@
-class WeatherAlertsEntity {
-  String? senderName;
-  String? event;
-  int? start;
-  int? end;
-  String? description;
-  List<String>? tags;
+import 'package:equatable/equatable.dart';
 
-  WeatherAlertsEntity({senderName, event, start, end, description, tags});
+class WeatherAlertsEntity extends Equatable {
+  final String? senderName;
+  final String? event;
+  final int? start;
+  final int? end;
+  final String? description;
+  final List<String>? tags;
 
-  WeatherAlertsEntity.fromJson(Map<String, dynamic> json) {
-    senderName = json['sender_name'];
-    event = json['event'];
-    start = json['start'];
-    end = json['end'];
-    description = json['description'];
-    if (json['tags'] != null) {
-      tags = <String>[];
-      json['tags'].forEach((v) {
-        tags!.add(v);
-      });
-    }
-  }
+  const WeatherAlertsEntity({
+    required this.senderName,
+    required this.event,
+    required this.start,
+    required this.end,
+    required this.description,
+    required this.tags,
+  });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['sender_name'] = senderName;
-    data['event'] = event;
-    data['start'] = start;
-    data['end'] = end;
-    data['description'] = description;
-    if (tags != null) {
-      data['tags'] = tags!.map((v) => v).toList();
-    }
-    return data;
-  }
+  @override
+  List<Object?> get props => [
+        senderName,
+        event,
+        start,
+        end,
+        description,
+        tags,
+      ];
 }

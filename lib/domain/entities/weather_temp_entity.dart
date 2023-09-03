@@ -1,30 +1,22 @@
-class WeatherTempEntity {
-  double? day;
-  double? min;
-  double? max;
-  double? night;
-  double? eve;
-  double? morn;
+import 'package:equatable/equatable.dart';
 
-  WeatherTempEntity({day, min, max, night, eve, morn});
+class WeatherTempEntity extends Equatable {
+  final double? day;
+  final double? min;
+  final double? max;
+  final double? night;
+  final double? eve;
+  final double? morn;
 
-  WeatherTempEntity.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    min = json['min'];
-    max = json['max'];
-    night = json['night'];
-    eve = json['eve'];
-    morn = json['morn'];
-  }
+  const WeatherTempEntity({
+    required this.day,
+    required this.min,
+    required this.max,
+    required this.night,
+    required this.eve,
+    required this.morn,
+  });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['day'] = day;
-    data['min'] = min;
-    data['max'] = max;
-    data['night'] = night;
-    data['eve'] = eve;
-    data['morn'] = morn;
-    return data;
-  }
+  @override
+  List<Object?> get props => [day, min, max, night, eve, morn];
 }

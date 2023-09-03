@@ -1,5 +1,5 @@
+import 'package:weather_forecast/data/models/geocoding_local_names_model.dart';
 import 'package:weather_forecast/domain/entities/geocoding_data_entity.dart';
-import 'package:weather_forecast/domain/entities/geocoding_local_names_entity.dart';
 
 class GeocodingDataModel extends GeocodingDataEntity {
   const GeocodingDataModel(
@@ -13,11 +13,10 @@ class GeocodingDataModel extends GeocodingDataEntity {
     return GeocodingDataModel(
       name: json['name'],
       localNames: json['local_names'] != null
-          ? json['local_names']
-              .map((x) => GeocodingLocalNamesEntity.fromJson(x))
-          : <GeocodingLocalNamesEntity>[],
-      lat: json['lat'],
-      lon: json['lon'],
+          ? GeocodingLocalNamesModel.fromJson(json['local_names'])
+          : null,
+      lat: json['lat'] is double? ? json['lat'] : json['lat'].toDouble(),
+      lon: json['lon'] is double? ? json['lon'] : json['lon'].toDouble(),
       country: json['country'],
     );
   }

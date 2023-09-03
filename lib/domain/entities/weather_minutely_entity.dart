@@ -1,18 +1,14 @@
-class WeatherMinutelyEntity {
-  int? dt;
-  int? precipitation;
+import 'package:equatable/equatable.dart';
 
-  WeatherMinutelyEntity({dt, precipitation});
+class WeatherMinutelyEntity extends Equatable {
+  final int? dt;
+  final int? precipitation;
 
-  WeatherMinutelyEntity.fromJson(Map<String, dynamic> json) {
-    dt = json['dt'];
-    precipitation = json['precipitation'];
-  }
+  const WeatherMinutelyEntity({
+    required this.dt,
+    required this.precipitation,
+  });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['dt'] = dt;
-    data['precipitation'] = precipitation;
-    return data;
-  }
+  @override
+  List<Object?> get props => [dt, precipitation];
 }

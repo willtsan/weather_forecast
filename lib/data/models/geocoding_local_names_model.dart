@@ -1,0 +1,63 @@
+import 'package:weather_forecast/domain/entities/geocoding_local_names_entity.dart';
+
+class GeocodingLocalNamesModel extends GeocodingLocalNamesEntity {
+  const GeocodingLocalNamesModel({
+    required super.ar,
+    required super.ascii,
+    required super.bg,
+    required super.ca,
+    required super.de,
+    required super.el,
+    required super.en,
+    required super.fa,
+    required super.featureName,
+    required super.fi,
+    required super.fr,
+    required super.gl,
+    required super.he,
+    required super.hi,
+    required super.id,
+    required super.it,
+    required super.ja,
+    required super.la,
+    required super.lt,
+    required super.pt,
+    required super.ru,
+    required super.sr,
+    required super.th,
+    required super.tr,
+    required super.vi,
+    required super.zu,
+  });
+
+  factory GeocodingLocalNamesModel.fromJson(Map<String, dynamic> json) {
+    return GeocodingLocalNamesModel(
+      ar: json['ar'] as String?,
+      ascii: json['ascii'] as String?,
+      bg: json['bg'] as String?,
+      ca: json['ca'] as String?,
+      de: json['de'] as String?,
+      el: json['el'] as String?,
+      en: json['en'] as String?,
+      fa: json['fa'] as String?,
+      featureName: json['feature_name'] as String?,
+      fi: json['fi'] as String?,
+      fr: json['fr'] as String?,
+      gl: json['gl'] as String?,
+      he: json['he'] as String?,
+      hi: json['hi'] as String?,
+      id: json['id'] as String?,
+      it: json['it'] as String?,
+      ja: json['ja'] as String?,
+      la: json['la'] as String?,
+      lt: json['lt'] as String?,
+      pt: json['pt'] as String?,
+      ru: json['ru'] as String?,
+      sr: json['sr'] as String?,
+      th: json['th'] as String?,
+      tr: json['tr'] as String?,
+      vi: json['vi'] as String?,
+      zu: json['zu'] as String?,
+    );
+  }
+}

@@ -1,24 +1,18 @@
-class WeatherFeelsLikeEntity {
-  double? day;
-  double? night;
-  double? eve;
-  double? morn;
+import 'package:equatable/equatable.dart';
 
-  WeatherFeelsLikeEntity({day, night, eve, morn});
+class WeatherFeelsLikeEntity extends Equatable {
+  final double? day;
+  final double? night;
+  final double? eve;
+  final double? morn;
 
-  WeatherFeelsLikeEntity.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    night = json['night'];
-    eve = json['eve'];
-    morn = json['morn'];
-  }
+  const WeatherFeelsLikeEntity({
+    required this.day,
+    required this.night,
+    required this.eve,
+    required this.morn,
+  });
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['day'] = day;
-    data['night'] = night;
-    data['eve'] = eve;
-    data['morn'] = morn;
-    return data;
-  }
+  @override
+  List<Object?> get props => [day, night, eve, morn];
 }
