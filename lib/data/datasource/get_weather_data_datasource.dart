@@ -26,6 +26,8 @@ class GetWeatherDataDatasource implements IGetWeatherDataDatasource {
             {
               'lat': lat.toString(),
               'lon': lon.toString(),
+              'units': 'metric',
+              'exclude': 'minutely,hourly,alerts',
               'appid': Env.openWeatherKey,
             },
           ),

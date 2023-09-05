@@ -16,7 +16,7 @@ class GetGeocodingDataDatasource implements IGetGeocodingDataDatasource {
       : _httpClient = httpClient;
 
   @override
-  TaskEither<IHttpRequestFailure, GeocodingDataEntity> call(
+  TaskEither<IHttpRequestFailure, List<GeocodingDataEntity>> call(
           {required String cityName}) =>
       TaskEither<IHttpRequestFailure, http.Response>.tryCatch(
         () => _httpClient.get(
@@ -46,8 +46,11 @@ class GetGeocodingDataDatasource implements IGetGeocodingDataDatasource {
 
             return _(
               Either.tryCatch(
-                () => GeocodingDataModel.fromJson(
-                    json.first as Map<String, dynamic>),
+                () => List.from(
+                  json.map(
+                    (x) => GeocodingDataModel.fromJson(x),
+                  ),
+                ),
                 FormattingFailure.new,
               ),
             );

@@ -12,7 +12,7 @@ class GetGeocodingDataRepository implements IGetGeocodingDataRepository {
       : _getGeocodingDataDatasource = getGeocodingDataDatasource;
 
   @override
-  TaskEither<IHttpRequestFailure, GeocodingDataEntity> call(
+  TaskEither<IHttpRequestFailure, List<GeocodingDataEntity>> call(
           {required String cityName}) =>
       _getGeocodingDataDatasource(cityName: cityName);
 }

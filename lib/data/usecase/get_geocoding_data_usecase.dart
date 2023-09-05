@@ -12,7 +12,7 @@ class GetGeocodingDataUsecase implements IGetGeocodingDataUsecase {
       : _getGeocodingDataRepository = getGeocodingDataRepository;
 
   @override
-  TaskEither<IHttpRequestFailure, GeocodingDataEntity> call(
+  TaskEither<IHttpRequestFailure, List<GeocodingDataEntity>> call(
           {required String cityName}) =>
       _getGeocodingDataRepository(cityName: cityName);
 }

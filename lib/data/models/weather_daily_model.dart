@@ -39,9 +39,7 @@ class WeatherDailyModel extends WeatherDailyEntity {
       summary: json['summary'],
       temp:
           json['temp'] != null ? WeatherTempModel.fromJson(json['temp']) : null,
-      feelsLike: json['feels_like'] != null
-          ? WeatherFeelsLikeModel.fromJson(json['feels_like'])
-          : null,
+      feelsLike: null,
       pressure: json['pressure'],
       humidity: json['humidity'],
       dewPoint: json['dew_point'] is double?

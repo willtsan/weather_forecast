@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 class BaseController extends GetxController {
   final RxBool _loading = RxBool(false);
   final RxBool _error = RxBool(false);
-  final String _errorMessage = "";
+
+  String _errorMessage = "";
 
   bool get loading => _loading.value;
   bool get error => _error.value;
@@ -19,8 +20,9 @@ class BaseController extends GetxController {
     _loading(false);
   }
 
-  void showError() {
+  void showError(String message) {
     _error(true);
+    _errorMessage = message;
     stopLoading();
   }
 

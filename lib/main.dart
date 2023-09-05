@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:weather_forecast/presentation/details/details_bindings.dart';
+import 'package:weather_forecast/presentation/details/details_page.dart';
 import 'package:weather_forecast/presentation/home/home_bindings.dart';
 import 'package:weather_forecast/presentation/home/home_page.dart';
 
@@ -19,8 +21,13 @@ class MainApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/home',
-          page: () => const HomePage(),
+          page: () => HomePage(),
           binding: HomeBindings(),
+        ),
+        GetPage(
+          name: '/details',
+          page: () => DetailsPage(),
+          binding: DetailsBindings(),
         )
       ],
       initialRoute: '/home',
