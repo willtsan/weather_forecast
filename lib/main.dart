@@ -26,7 +26,7 @@ class MainApp extends StatelessWidget {
         ),
         GetPage(
           name: '/details',
-          page: () => DetailsPage(),
+          page: () => const DetailsPage(),
           binding: DetailsBindings(),
         )
       ],

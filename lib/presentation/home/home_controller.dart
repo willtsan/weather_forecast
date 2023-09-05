@@ -50,22 +50,37 @@ class HomeController extends BaseController {
     }
 
     _geocodingDataUsecase(cityName: cityName).run().then(
-          (response) => response.fold((l) {
-            showError(l.toString());
-            stopLoading();
-          }, (r) {
-            _getWeatherDataUsecase(lat: r.first.lat ?? 0, lon: r.first.lon ?? 0)
-                .run()
-                .then(
-                  (response) => response.fold(
-                    (l) {
-                      showError(l.toString());
-                      stopLoading();
-                    },
-                    (r2) => addCity(r.first.localNames!.en ?? cityName, r2),
-                  ),
-                );
-          }),
+          (response) => response.fold(
+            (l) {
+              showError(l.toString());
+              stopLoading();
+            },
+            (r) {
+              _getWeatherDataUsecase(
+                      lat: r.first.lat ?? 0, lon: r.first.lon ?? 0)
+                  .run()
+                  .then(
+                    (response) => response.fold(
+                      (l) {
+                        showError(l.toString());
+                        stopLoading();
+                      },
+                      (r2) {
+                        if (r.first.localNames == null) {
+                          stopLoading();
+                          showError('City not found');
+                        } else {
+                          addCity(
+                              r.first.localNames != null
+                                  ? r.first.localNames!.en ?? cityName
+                                  : cityName,
+                              r2);
+                        }
+                      },
+                    ),
+                  );
+            },
+          ),
         );
   }
 

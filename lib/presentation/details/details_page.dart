@@ -8,11 +8,20 @@ class DetailsPage extends GetView<DetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [],
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.offNamed('/home');
+          },
         ),
+      ),
+      body: SingleChildScrollView(
+        child: Obx(() {
+          return Column(
+            children: [Text(controller.teste.value)],
+          );
+        }),
       ),
     );
   }
