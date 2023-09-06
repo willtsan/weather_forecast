@@ -11,7 +11,9 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
+        leading: Container(),
         centerTitle: true,
         title: const Text("Weather Forecast"),
         actions: [
@@ -19,14 +21,19 @@ class HomePage extends GetView<HomeController> {
             if (controller.loading || controller.error) {
               return const SizedBox.shrink();
             } else {
-              return TextButton(
+              if (controller.cities.isEmpty) {
+                return const SizedBox.shrink();
+              } else {
+                return TextButton(
                   onPressed: () {
                     controller.clear();
                   },
                   child: const Text(
                     'Clear',
                     style: TextStyle(color: Colors.white),
-                  ));
+                  ),
+                );
+              }
             }
           })
         ],
@@ -69,26 +76,29 @@ class HomePage extends GetView<HomeController> {
                   const SizedBox(
                     height: 10,
                   ),
-                  TextField(
-                    controller: searchController,
-                    textInputAction: TextInputAction.done,
-                    onSubmitted: (value) {
-                      controller.search(value);
-                      searchController.text = '';
-                    },
-                    decoration: InputDecoration(
-                        hintText: "Search",
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () {
-                            controller.search(searchController.text);
-                            searchController.text = '';
-                          },
-                        )),
-                    textAlign: TextAlign.start,
+                  Container(
+                    color: Colors.white,
+                    child: TextField(
+                      controller: searchController,
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (value) {
+                        controller.search(value);
+                        searchController.text = '';
+                      },
+                      decoration: InputDecoration(
+                          hintText: "Search",
+                          border: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.search),
+                            onPressed: () {
+                              controller.search(searchController.text);
+                              searchController.text = '';
+                            },
+                          )),
+                      textAlign: TextAlign.start,
+                    ),
                   ),
                   const SizedBox(
                     height: 10,

@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
-import 'package:weather_forecast/data/http_request_failure.dart';
+import 'package:weather_forecast/data/shared/http_request_failure.dart';
 import 'package:weather_forecast/data/models/geocoding_data_model.dart';
 import 'package:weather_forecast/domain/datasource/get_geocoding_data_datasource.dart';
 import 'package:weather_forecast/domain/entities/geocoding_data_entity.dart';
-import 'package:weather_forecast/domain/http_request_failure.dart';
+import 'package:weather_forecast/domain/shared/http_request_failure.dart';
 import 'package:weather_forecast/env/env.dart';
 
 class GetGeocodingDataDatasource implements IGetGeocodingDataDatasource {

@@ -1,4 +1,4 @@
-import 'package:weather_forecast/domain/http_request_failure.dart';
+import 'package:weather_forecast/domain/shared/http_request_failure.dart';
 import 'package:http/http.dart' as http;
 
 class HttpRequestFailure implements IHttpRequestFailure {
