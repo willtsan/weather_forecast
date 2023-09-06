@@ -64,16 +64,19 @@ class HomeController extends BaseController {
     }
 
     startLoading();
-    _geocodingDataUsecase(cityName: term)
-        .run()
-        .then((response) => response.fold((l) => showError(l.toString()), (r) {
+    _geocodingDataUsecase(cityName: term).run().then(
+          (response) => response.fold(
+            (l) => showError(l.toString()),
+            (r) {
               if (r.isEmpty) {
                 stopLoading();
                 showError(ErrorTypeEnum.noCityFound.errorMessage);
               } else {
                 fetchCity(r.first.name ?? '');
               }
-            }));
+            },
+          ),
+        );
   }
 
   void fetchCity(String cityName) {
