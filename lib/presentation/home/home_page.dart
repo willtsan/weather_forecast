@@ -6,7 +6,7 @@ import 'package:weather_forecast/presentation/home/home_controller.dart';
 class HomePage extends GetView<HomeController> {
   HomePage({super.key});
 
-  TextEditingController searchController = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class HomePage extends GetView<HomeController> {
                 return const SizedBox.shrink();
               } else {
                 return TextButton(
+                  key: const Key("clear_button"),
                   onPressed: () {
                     controller.clear();
                   },
@@ -44,11 +45,14 @@ class HomePage extends GetView<HomeController> {
           () {
             if (controller.loading) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  key: Key('loading'),
+                ),
               );
             } else if (controller.error) {
               return Center(
                 child: Column(
+                  key: const Key('error_message'),
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -58,6 +62,7 @@ class HomePage extends GetView<HomeController> {
                       height: 20,
                     ),
                     ElevatedButton(
+                      key: const Key('try_again_button'),
                       child: const Text(
                         "Try Again",
                         style: TextStyle(fontSize: 18),
@@ -79,6 +84,7 @@ class HomePage extends GetView<HomeController> {
                   Container(
                     color: Colors.white,
                     child: TextField(
+                      key: const Key('search_field'),
                       controller: searchController,
                       textInputAction: TextInputAction.done,
                       onSubmitted: (value) {
@@ -91,6 +97,7 @@ class HomePage extends GetView<HomeController> {
                             borderSide: BorderSide(color: Colors.black),
                           ),
                           suffixIcon: IconButton(
+                            key: const Key('search_button'),
                             icon: const Icon(Icons.search),
                             onPressed: () {
                               controller.search(searchController.text);
@@ -106,16 +113,27 @@ class HomePage extends GetView<HomeController> {
                   Expanded(
                     flex: 1,
                     child: Obx(() {
-                      return ListView.separated(
-                        itemBuilder: (context, index) => WeatherTileComponent(
-                          cityData: controller.cities[index],
-                        ),
-                        itemCount: controller.cities.length,
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 10,
-                        ),
-                        shrinkWrap: true,
-                      );
+                      if (controller.cities.isEmpty) {
+                        return const Center(
+                          child: Text(
+                              key: Key('empty_cities_message'),
+                              "Search a city to see\nthe current weather and forecast",
+                              textAlign: TextAlign.center),
+                        );
+                      } else {
+                        return ListView.separated(
+                          key: const Key('cities_list'),
+                          itemBuilder: (context, index) => WeatherTileComponent(
+                            key: Key('city_$index'),
+                            cityData: controller.cities[index],
+                          ),
+                          itemCount: controller.cities.length,
+                          separatorBuilder: (context, index) => const SizedBox(
+                            height: 10,
+                          ),
+                          shrinkWrap: true,
+                        );
+                      }
                     }),
                   ),
                 ],

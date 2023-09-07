@@ -8,4 +8,6 @@ abstract class Env {
   static String openWeatherKey = _Env.openWeatherKey;
   @EnviedField(varName: 'BASE_WEATHER_URL', obfuscate: true)
   static String baseWeatherUrl = _Env.baseWeatherUrl;
+  @EnviedField(varName: 'BASE_WEATHER_ICONS_URL', obfuscate: true)
+  static String baseWeatherIconsUrl = _Env.baseWeatherIconsUrl;
 }

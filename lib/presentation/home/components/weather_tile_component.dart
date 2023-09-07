@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_forecast/data/models/city_model.dart';
+import 'package:weather_forecast/env/env.dart';
 
 class WeatherTileComponent extends StatelessWidget {
   final CityModel cityData;
@@ -77,7 +78,7 @@ class WeatherTileComponent extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       ),
                       imageUrl:
-                          'http://openweathermap.org/img/wn/${cityData.weather.current!.weather!.first.icon}@2x.png',
+                          '${Env.baseWeatherIconsUrl}${cityData.weather.current!.weather!.first.icon}@2x.png',
                     ),
                   ),
                 ),

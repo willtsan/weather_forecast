@@ -1,10 +1,9 @@
-import 'package:weather_forecast/data/models/weather_feels_like_model.dart';
 import 'package:weather_forecast/data/models/weather_model.dart';
 import 'package:weather_forecast/data/models/weather_temp_model.dart';
 import 'package:weather_forecast/domain/entities/weather_daily_entity.dart';
 
 class WeatherDailyModel extends WeatherDailyEntity {
-  WeatherDailyModel(
+  const WeatherDailyModel(
       {required super.dt,
       required super.sunrise,
       required super.sunset,

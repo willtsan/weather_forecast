@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:weather_forecast/data/models/city_model.dart';
+import 'package:weather_forecast/domain/entities/geocoding_data_entity.dart';
 import 'package:weather_forecast/domain/entities/weather_data_entity.dart';
 import 'package:weather_forecast/domain/enum/error_type_enum.dart';
 import 'package:weather_forecast/domain/usecase/get_geocoding_data_usecase.dart';
@@ -12,12 +13,15 @@ import 'package:weather_forecast/shared/base.controller.dart';
 class HomeController extends BaseController {
   final IGetWeatherDataUsecase _getWeatherDataUsecase;
   final IGetGeocodingDataUsecase _geocodingDataUsecase;
+  final InternetConnection _internetConnection;
 
   HomeController(
       {required IGetWeatherDataUsecase getWeatherDataUsecase,
-      required IGetGeocodingDataUsecase geocodingDataUsecase})
+      required IGetGeocodingDataUsecase geocodingDataUsecase,
+      required InternetConnection internetConnection})
       : _getWeatherDataUsecase = getWeatherDataUsecase,
-        _geocodingDataUsecase = geocodingDataUsecase;
+        _geocodingDataUsecase = geocodingDataUsecase,
+        _internetConnection = internetConnection;
 
   List<String> citiesToFetch = [];
 
@@ -27,7 +31,7 @@ class HomeController extends BaseController {
 
   @override
   void onInit() {
-    listener = InternetConnection().onStatusChange.listen(
+    listener = _internetConnection.onStatusChange.listen(
       (InternetStatus status) {
         switch (status) {
           case InternetStatus.connected:
@@ -66,59 +70,41 @@ class HomeController extends BaseController {
     startLoading();
     _geocodingDataUsecase(cityName: term).run().then(
           (response) => response.fold(
-            (l) => showError(l.toString()),
+            (l) {
+              stopLoading();
+              showError(ErrorTypeEnum.noCityFound.errorMessage);
+            },
             (r) {
               if (r.isEmpty) {
                 stopLoading();
                 showError(ErrorTypeEnum.noCityFound.errorMessage);
               } else {
-                fetchCity(r.first.name ?? '');
+                fetchCity(r.first);
               }
             },
           ),
         );
   }
 
-  void fetchCity(String cityName) {
-    if (cityName.isEmpty) {
-      stopLoading();
-      showError(ErrorTypeEnum.noCityFound.errorMessage);
-      return;
-    }
-
-    _geocodingDataUsecase(cityName: cityName).run().then(
+  void fetchCity(GeocodingDataEntity city) {
+    _getWeatherDataUsecase(lat: city.lat ?? 0, lon: city.lon ?? 0).run().then(
           (response) => response.fold(
             (l) {
-              showError(l.toString());
+              showError(ErrorTypeEnum.apiRequestFailed.errorMessage);
               stopLoading();
             },
-            (geocodingResponse) {
-              _getWeatherDataUsecase(
-                      lat: geocodingResponse.first.lat ?? 0,
-                      lon: geocodingResponse.first.lon ?? 0)
-                  .run()
-                  .then(
-                    (response) => response.fold(
-                      (l) {
-                        showError(l.toString());
-                        stopLoading();
-                      },
-                      (weatherResponse) {
-                        if (geocodingResponse.first.localNames == null) {
-                          stopLoading();
-                          showError(ErrorTypeEnum.noCityFound.errorMessage);
-                        } else {
-                          addCity(
-                              geocodingResponse.first.localNames != null
-                                  ? geocodingResponse.first.localNames!.en ??
-                                      cityName
-                                  : cityName,
-                              geocodingResponse.first.country ?? '',
-                              weatherResponse);
-                        }
-                      },
-                    ),
-                  );
+            (weatherResponse) {
+              if (city.localNames == null) {
+                stopLoading();
+                showError(ErrorTypeEnum.noCityFound.errorMessage);
+              } else {
+                addCity(
+                    city.localNames != null
+                        ? city.localNames!.en ?? city.name!
+                        : city.name!,
+                    city.country ?? '',
+                    weatherResponse);
+              }
             },
           ),
         );

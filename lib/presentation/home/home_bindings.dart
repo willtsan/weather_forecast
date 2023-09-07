@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:weather_forecast/data/datasource/get_geocoding_data_datasource.dart';
 import 'package:weather_forecast/data/datasource/get_weather_data_datasource.dart';
 import 'package:weather_forecast/data/repository/get_geocoding_data_repository.dart';
@@ -49,9 +50,9 @@ class HomeBindings extends Bindings {
 
     Get.lazyPut(
         () => HomeController(
-              getWeatherDataUsecase: Get.find(),
-              geocodingDataUsecase: Get.find(),
-            ),
+            getWeatherDataUsecase: Get.find(),
+            geocodingDataUsecase: Get.find(),
+            internetConnection: InternetConnection()),
         fenix: true);
   }
 }
